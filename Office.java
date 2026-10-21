@@ -6,16 +6,18 @@ public class Office extends Thread{
         Office.queue = queue;
     }
 
-    public  void run(){
+    public void run(){
         Random rand = new Random();
         while(true){
-            IO.println(queue);
             try {
                 Operations toRemove = Operations.getRandom();
-                if(queue.dequeue(toRemove) == null){
-                    Thread.sleep(1500);
+                if(!queue.isInQueue(toRemove)){
+                    IO.println("Cannot find a " + toRemove + " ticket, trying another one in 5s...");
+                    Thread.sleep(5000);
                 }else{
-                    Thread.sleep(rand.nextInt(1000, 10000));
+                    IO.println("Executing operation " + toRemove + "...");
+                    Thread.sleep(rand.nextInt(2000, 10000));
+                    IO.println(queue.dequeue(toRemove).toString());
                 }
             } catch (InterruptedException e) {
                 System.err.println("Office interrupted");

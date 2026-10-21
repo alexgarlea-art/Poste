@@ -2,7 +2,7 @@ public class Ticket{
     private final Operations type;
     private final int number;
     private final long start;
-    private long finish;
+    private long elapsedTime;
 
     public Ticket(Operations type, long start, int n) {
         this.number = n;
@@ -21,12 +21,12 @@ public class Ticket{
         return this.start;
     }
 
-    public long getFinish() {
-        return this.finish;
+    public long getElapsedTime() {
+        return this.elapsedTime;
     }
 
     public void evade(){
-        this.finish = System.currentTimeMillis();
+        this.elapsedTime = System.currentTimeMillis() - start;
     }
 
     public int getNumber() {
@@ -34,7 +34,14 @@ public class Ticket{
     }
 
     @Override
-    public String toString(){
-        return this.type.toString();
+    public String toString() {
+        return String.format(
+                "%-16s|%-15s|%n" +
+                "%-16s|%-15s|%n" +
+                "%-16s|%-15d|%n" +
+                "\n\n",
+                "Ticket Number:", this.number,
+                "Operation Type:", this.type,
+                "Time Used:", elapsedTime);
     }
 }

@@ -15,10 +15,9 @@ public class Totem extends Thread{
 
     public void run(){
        while(true){
-           IO.println(queue);
            try {
                queue.enqueue(getTicket(Operations.getRandom()));
-               Thread.sleep(100);
+               Thread.sleep(4500);
            } catch (InterruptedException e) {
                System.err.println("Totem interrupted");
                throw new RuntimeException(e);

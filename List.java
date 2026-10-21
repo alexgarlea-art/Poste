@@ -73,8 +73,12 @@ public class List<T> {
     public T removeHead(){
         T temp = this.head.getValue();
         this.head = this.head.getNext();
-        this.head.getPrev().setNext(null);
-        this.head.setPrev(null);
+
+        if(this.head != null) { // if head.getnext gives this.head null, it cannot invoke this.head.getprev()
+            this.head.getPrev().setNext(null);
+            this.head.setPrev(null);
+        }
+
         return temp;
     }
 
@@ -89,22 +93,14 @@ public class List<T> {
     @Override
     public String toString() {
         if (this.head == null) {
-            return "[]";
+            return "List empty";
         }
-
         StringBuilder sb = new StringBuilder();
-        sb.append("[");
-
         Node<T> cur = this.head;
         while (cur != null) {
             sb.append(cur.getValue());
-            if (cur.getNext() != null) {
-                sb.append(", ");
-            }
             cur = cur.getNext();
         }
-
-        sb.append("]");
         return sb.toString();
     }
 
